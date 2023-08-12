@@ -1,0 +1,14 @@
+#include<stdio.h>
+int main(){
+	int num,i,count=0;
+	printf("enter the number: ");
+	scanf("%d",&num);
+	printf("the factors of %d = ",num);
+	for(i=1;i<=num;i++){
+		if(num%i==0){
+			count++;
+			printf("%d ",i);
+		}
+	}
+	printf("\nthe total factors of %d = %d",num,count);
+}
