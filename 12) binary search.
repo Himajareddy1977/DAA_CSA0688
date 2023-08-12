@@ -1,0 +1,33 @@
+#include<stdio.h>/
+int binary(int array[],int val,int low,int high)
+{
+	while(low<=high){
+		int mid=(high-low)/2;
+		if(array[mid]==val)
+		return mid;
+		if(array[mid]<val)
+			low=mid+1;
+		else
+			high=mid-1;
+		}
+		return -1;
+}
+int main(){
+	int a[10],n,m,i,result,val;
+	printf("enter the array size: ");
+	scanf("%d",&n);
+	printf("\nenter the values: ");
+	for(i=0;i<n;i++){
+		scanf("%d",&a[i]);
+	}
+	printf("\nenter the values to be search: ");
+	scanf("%d",&val);
+	result=binary(a,val,0,n-1);
+	if(result==-1){
+		printf("not found in array");
+	}
+	else{
+		printf("index values of %d is =%d",val,result);
+	}
+	return 0;
+}
