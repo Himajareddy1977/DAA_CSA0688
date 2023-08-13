@@ -1,0 +1,35 @@
+#include<stdio.h>
+#include<stdlib.h>
+int sum(int fre[],int i,int j);
+int optcost(int fre[],int i,int j) {
+	if(j<i)
+		return 0;
+	if(j==i)
+		return fre[i];
+	int fsum=sum(fre,i,j);
+	int min=INT_MAX;
+	for(int r=i; r<=j; r++) {
+		int cost=optcost(fre,i,r-1)+optcost(fre,r+1,j);
+		if(cost<min)
+			min=cost;
+	}
+	return min+fsum;
+}
+int optimal(int keys[],int fre[],int n) {
+	return optcost(fre,0,n-1);
+}
+int sum(int fre[],int i,int j) {
+	int s=0;
+	for(int k=i; k<=j; k++)
+		s+=fre[k];
+	return s;
+}
+int main() {
+	int n,keys[100],fre[199],i;
+	printf("enter: ");
+	scanf("%d",&n);
+	for(i=0;i<n;i++){
+		scanf("%d%d",&keys[i],&fre[i]);
+	}
+	printf("optimal cost: %d",optimal(keys,fre,n));
+}
