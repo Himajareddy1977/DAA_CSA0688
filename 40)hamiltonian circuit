@@ -1,0 +1,61 @@
+#include <stdio.h>
+#include <stdbool.h>
+
+#define V 5 
+
+void printSolution(int path[V]) {
+    printf("Hamiltonian Cycle: ");
+    for (int i = 0; i < V; i++) {
+        printf("%d ", path[i]);
+    }
+    printf("%d\n", path[0]); 
+}
+
+void nearestNeighbor(int graph[V][V], int start) {
+    int path[V];
+    bool visited[V];
+    
+    for (int i = 0; i < V; i++) {
+        visited[i] = false;
+    }
+    
+    path[0] = start;
+    visited[start] = true;
+    
+    for (int i = 1; i < V; i++) {
+        int currentVertex = path[i - 1];
+        int minDistance = -1;
+        int nearestVertex = -1;
+        
+        for (int j = 0; j < V; j++) {
+            if (!visited[j] && (minDistance == -1 || graph[currentVertex][j] < minDistance)) {
+                minDistance = graph[currentVertex][j];
+                nearestVertex = j;
+            }
+        }
+        
+        path[i] = nearestVertex;
+        visited[nearestVertex] = true;
+    }
+    
+    if (graph[path[V - 1]][start] == 0) {
+        printf("No Hamiltonian Cycle exists\n");
+        return;
+    }
+    
+    printSolution(path);
+}
+
+int main() {
+    int e,v,i,j, graph[10][10];
+    scanf("%d",&e);
+    scanf("%d",&v);
+    for(i=0;i<e;i++)
+    for(j=0;j<v;j++)
+    scanf("%d",&graph[i][j]);
+int startVertex = 0; 
+    
+    nearestNeighbor(graph, startVertex);
+    
+    return 0;
+}
